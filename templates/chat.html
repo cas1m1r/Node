@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Flask Form</title>
+</head>
+<style>
+body {
+  background-color: #0f0f0f;
+  color: #f8f8f2;
+  font-family: 'Courier New', monospace;
+  margin: 2rem;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  background-color: #1e1e1e;
+  color: #00ffcc;
+  border: 1px solid #444;
+  padding: 1rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+button {
+  background-color: #222;
+  color: #00ffcc;
+  border: 1px solid #444;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button-row {
+    display: flex; /* Makes the container a flex container */
+    justify-content: center; /* Horizontally centers the buttons within the container */
+}
+
+button:hover {
+  background-color: #333;
+}
+
+h2 {
+  color: #ff79c6;
+}
+
+.response {
+  background-color: #1a1a1a;
+  border-left: 3px solid #00ffcc;
+  padding: 1rem;
+  margin-top: 1rem;
+  white-space: pre-wrap;
+}
+</style>
+<img src="{{ url_for('static', filename=volume_state) }}" alt="no picture" width="20px">
+{% if has_twitch %}
+    <img src="/static/twitch.png" alt="no picture" width="20px">
+{% endif %}
+<div class="button-row">
+    <form method="GET" action="/mute">
+       <button type="submit" name="action" value="button_pressed">Mute</button>
+    </form>
+    <form action="/view-models" method="GET">
+        <button type="submit">View Models</button>
+    </form>
+    <form action="/personas" method="GET">
+        <button type="submit">Change Persona</button>
+    </form>
+    <form action="/reset-node" method="GET">
+        <button type="submit">Clear Memory</button>
+    </form>
+    <form action="/download-model" method="GET">
+    </form>
+    <form action="/enable-twitch-interactions" method="GET">
+        <button type="submit">Enable Twitch Input</button>
+    </form>
+</div>
+<body>
+    <h1>Enter Your Message</h1>
+    <form action="/node/analyze" method="post">
+        <label for="message">Message:</label><br>
+        <textarea name="message" rows="10" cols="80" placeholder="Type your message..."></textarea>
+        <input type="submit" value="Submit">
+    </form>
+
+
+<h1> Node Response </h1>
+    <div class="scrollable-text-container">
+        {% for text in texts %}
+            <p>{{ text }}</p>
+        {% endfor %}
+    </div>
+
+
+</body>
+</html>
